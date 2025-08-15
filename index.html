@@ -5,61 +5,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <style rel="stylesheet" href="styles.css"></style>
+    <link rel="stylesheet" href="styles.css">
     <script src="script.js" defer></script>
 </head>
 
 <body>
 
     <div id="calc-container">
-        <div id="display"></div>
-        <div id="memory-func">
+        <div id="display">0</div>
+        <div class="flex-row button-slim grey-base">
             <div>mc</div>
             <div>mr</div>
             <div>m-</div>
             <div>m+</div>
         </div>
-        <div id="main-func">
-            <div id="numpad">
-                <div id="numpad-upper">
-                    <div id="clear"></div>
+        <div class="flex-row">
+            <div>
+                <div class="flex-row button grey-base">
+                    <div id="clear">AC</div>
                     <div id="sqrt"><span>x</span></div>
                     <div id="percent">%</div>
                 </div>
-                <div id="numpad-lower">
-                    <div>
+                <div>
+                    <div class="flex-row button bold white-base">
                         <div>7</div>
                         <div>8</div>
                         <div>9</div>
                     </div>
-                    <div>
+                    <div class="flex-row button bold white-base">
                         <div>4</div>
                         <div>5</div>
                         <div>6</div>
                     </div>
-                    <div>
+                    <div class="flex-row button bold white-base">
                         <div>1</div>
                         <div>2</div>
                         <div>3</div>
                     </div>
-                    <div>
+                    <div class="flex-row button bold white-base">
                         <div>0</div>
                         <div>.</div>
                         <div>+/-</div>
                     </div>
                 </div>
             </div>
-            <div id="operator-pad">
-                <p>/</p>
-                <p>x</p>
-                <p>-</p>
-                <p>+</p>
-                <p>=</p>
+            <div id="operator-pad" class="button bold yellow-base">
+                <div>/</div>
+                <div>x</div>
+                <div>-</div>
+                <div>+</div>
+                <div>=</div>
             </div>
         </div>
-        <div id="misc-func">
-            <div id="pi">pi</div>
-            <div id="pow">x<span>y</span></div>
+        <div class="flex-row button grey-base">
+            <div id="pi">&pi;</div>
+            <div id="pow">x<sup>y</sup></div>
             <div id="round-two">R2</div>
             <div id="round-zero">R0</div>
         </div>

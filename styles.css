@@ -1,0 +1,85 @@
+#calc-container {
+    width: fit-content;
+    height: auto;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    font-size: 32px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid black;
+    border-radius: 5%;
+}
+
+.flex-row {
+    display: flex;
+    gap: 8px;
+}
+
+#display {
+    padding-top: 8px;
+    padding-bottom:8px;
+    padding-right: 4px;
+    background-color: white;
+    border: 0.5px solid gray;
+    margin-bottom: 16px;
+    text-align: right;
+}
+
+.button div,
+.button-slim div {
+    width: 80px;
+    margin-bottom: 8px;
+    text-align: center;
+    align-content: center;
+    box-sizing: border-box;
+    border: 1px solid gray;
+    border-radius: 10%;
+}
+
+.button div {
+    height: 65px;
+}
+
+.button-slim div {
+    height: 45px;
+}
+
+.bold {
+    font-weight: 600;
+}
+
+.yellow-base div {
+    background-color: #ffcf05;
+}
+
+.yellow-base div:hover {
+    background-color: ivory;
+}
+
+.white-base div {
+    background-color: white;
+}
+
+.white-base div:active {
+    background-color: lightyellow;
+}
+
+.grey-base div {
+    background-color: rgb(173, 217, 245);
+}
+
+.grey-base div:active {
+    background-color: rgb(173, 217, 245, 0.5);
+}
+
+.yellow-base div:hover,
+.grey-base div:hover,
+.white-base div:hover {
+    cursor: pointer;
+}
+
+#sqrt span::before {
+    content: "\221A"
+}
