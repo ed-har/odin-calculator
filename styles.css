@@ -10,6 +10,7 @@
     font-family: Arial, Helvetica, sans-serif;
     border: 1px solid black;
     border-radius: 5%;
+    user-select: none;
 }
 
 .flex-row {
@@ -54,7 +55,7 @@
     background-color: #ffcf05;
 }
 
-.yellow-base div:hover {
+.yellow-base div:active {
     background-color: ivory;
 }
 
@@ -80,6 +81,14 @@
     cursor: pointer;
 }
 
-#sqrt span::before {
+#sqrt::before {
     content: "\221A"
+}
+
+#operator-pad #execute {
+    background-color: orange;
+}
+
+#operator-pad #execute:active {
+    background-color: rgb(255, 165, 0, 0.5);
 }
