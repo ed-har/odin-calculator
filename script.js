@@ -33,8 +33,9 @@ function clearEverything(elem) {
 };
 
 function refreshClearButton() {
+    const isElemClear = Object.values(elem).every(value => value === '');
     const clearButton = document.querySelector("#clear");
-    clearButton.textContent = "AC";
+    clearButton.textContent = (isElemClear) ? "AC" : "CE";
 };
 
 const number = '0123456789';
@@ -76,15 +77,20 @@ function updateElem(input) {
         } else if (input === 'pi') {
             elem[operand] = Math.PI;
         } else if (input === '.') {
-            if (!elem[operand].includes(input)) elem[operand] += input;
+            if (!elem[operand].includes(input)) {
+                elem[operand] = (elem[operand] === '') ? 
+                "0." : elem[operand] + input;
+            };
+        } else if (number.includes(input)) {
+            if (!(elem[operand] === '' && input === "0")) elem[operand] += input;
         } else {
             elem.operator = input;
         }
     }
 
-    if (number.includes(input)) {
+    if (number.includes(input) || input === ".") {
         (elem.operator === '') ?
-            elem.operandA += input : elem.operandB += input;
+            updateOperand(input, 'operandA') : updateOperand(input, 'operandB');
     } else {
         switch (true) {
             case (elem.operandA === ''):
@@ -96,8 +102,9 @@ function updateElem(input) {
                 elem.operator = input;
                 break;
             default:
-                if (input !== 'execute') updateOperand(input, 'operandB');
-                else {
+                if (!Object.keys(binaryFn).includes(input)) {
+                    updateOperand(input, 'operandB');
+                } else {
                     elem.operandA = binaryFn[elem.operator](+elem.operandA, +elem.operandB);
                     elem.operandB = '';
                     elem.operator = '';
@@ -111,9 +118,7 @@ function refreshDisplay() {
     const display = document.querySelector("#display");
     display.textContent = (elem.operandB === '') ? elem.operandA : elem.operandB;
     if (elem.operandA === '') display.textContent = '0';
-
-    const clearButton = document.querySelector("#clear");
-    clearButton.textContent = "CE";
+    refreshClearButton();
 };
 
 function buttonInit() {
