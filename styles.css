@@ -80,6 +80,6 @@
     cursor: pointer;
 }
 
-#sqrt span::before {
+#sqrt::before {
     content: "\221A"
 }
