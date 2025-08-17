@@ -19,20 +19,13 @@ const unaryFn = {
     sqrt: (a) => Math.round(Math.sqrt(a) * (10 ** 5)) / 10 ** 5,
 };
 
-function clearEverything(elem) {
-    for (const key in elem) {
-        elem[key] = '';
-    };
-};
-
 const number = '0123456789';
 const unaryFnId = ['percentage', 'sqrt', 'round-two', 'round-zero', 'flip-sign'];
-const elem = {
-    operandA: '',
-    operandB: '',
-    operator: '',
-    memory: '',
-};
+const elem = new Array(3).fill("");
+const operandA = 0;
+const operator = 1;
+const operandB = 2;
+let currPos = 0;
 
 function getId(e) {
     const input = e.target.id;
@@ -42,59 +35,72 @@ function getId(e) {
         return;
     };
     updateElem(input, elem);
+};
+
+function clearEverything(elem) {
+    for (let i = 0; i < elem.length; i++) {
+        elem[i] = '';
+    };
+};
+
+function refreshDisplay(currPos) {
+    const display = document.querySelector("#display");
+    display.textContent = (elem[operandB] === '') ? elem[operandA] : elem[operandB];
+    if (elem[operandA] === '') display.textContent = '0';
 }
 
 function camelize(text) {
     if (!text.includes("-")) return text;
     return text.split("-").reduce((str, word) =>
         str + (word.charAt(0).toUpperCase() + word.slice(1)));
-}
+};
 
 function updateElem(input) {
     function updateOperand(input, operand) {
         if (unaryFnId.includes(input)) {
-            elem.operandA = unaryFn[`${camelize(input)}`](+`elem.${operand}`);
+            elem[operand] = unaryFn[`${camelize(input)}`](+elem[operand]);
         } else if (input === 'pi') {
-            elem.operandB = Math.PI;
+            elem[operand] = Math.PI;
+        } else if (number.includes(input)) {
+            elem[operand] += input;
         } else {
-            elem.operator = input;
+            if (operand === operandB) {
+                executeCalc;
+            } else {
+            updateOperator(input, ++currPos);
+            }
+        };
+    };
+
+    function updateOperator(input, operator) {
+        if (number.includes(input)) {
+            updateOperand(input, ++currPos)
+        } else {
+            elem[operator] = input;
         }
+    };
+
+    function executeCalc(input) {
+        elem[operandA] = binaryFn[`${elem[operator]}`](+elem[operandA], +elem[operandB]);
+        elem[operator] = '';
+        elem[operandB] = '';
+        currPos = 0;
     }
 
-    const isAEmpty = elem.operandA === '';
-    const isBEmpty = elem.operandB === '';
-    let isOperatorEmpty = elem.operator === '';
+    switch (currPos) {
+        case operator:
+            updateOperator(input, currPos);
+            break;
+        case operandA:
+        case operandB:
+            updateOperand(input, currPos);
+            break;
+        default:
+            executeCalc(input);
+    };
+    refreshDisplay();
+};
 
-    if (number.includes(input)) {
-        (isOperatorEmpty) ? elem.operandA += input : elem.operandB += input;
-    } else {
-        switch (true) {
-            case isAEmpty:
-                break;
-            case isOperatorEmpty:
-                updateOperand(input, 'operandA');
-                break;
-            case isBEmpty:
-                elem.operator = input;
-                break;
-            default:
-                if (input !== 'execute') updateOperand(input, 'operandB');
-                else {
-                    elem.operandA = binaryFn[elem.operator](+elem.operandA, +elem.operandB);
-                    elem.operandB = '';
-                    elem.operator = '';
-                    isOperatorEmpty = true;
-                }
-        }
-    }
-    refreshDisplay(isOperatorEmpty);
-}
-
-function refreshDisplay(isOperatorEmpty) {
-    const display = document.querySelector("#display");
-    display.textContent = (isOperatorEmpty) ? elem.operandA : elem.operandB;
-    if (elem.operandA === '') display.textContent = '0';
-}
 
 function buttonInit() {
     const idText = [...document.querySelectorAll(".get-id > *")];
