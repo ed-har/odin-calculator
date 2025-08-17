@@ -1,37 +1,54 @@
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const power = (a, b) => a ** b;
-const divide = (a, b) => {
-    if (b == 0) return NaN;
-    return Math.floor((a / b) * (10 ** 5)) / 10 ** 5;
-} // default to rounding 5 decimal places
-const percentage = (a) => a / 100;
-const sqrt = (a) => Math.sqrt(a);
-const roundTwo = (a) => Math.round(a * (10 ** 2)) / 10 ** 2;
-const roundZero = (a) => Math.round(a);
+const binaryFn = {
+    add: (a, b) => a + b,
+    subtract: (a, b) => a - b,
+    multiply: (a, b) => a * b,
+    power: (a, b) => a ** b,
+    divide: (a, b) => {
+        // round to 5 decimal places
+        if (b == 0) return NaN;
+        return Math.floor((a / b) * (10 ** 5)) / 10 ** 5;
+    },
+};
+
+const unaryFn = {
+    percentage: (a) => a / 100,
+    sqrt: (a) => Math.sqrt(a),
+    roundTwo: (a) => Math.round(a * (10 ** 2)) / 10 ** 2,
+    roundZero: (a) => Math.round(a),
+    flipSign: (a) => -a,
+}
+
+function clearEverything(elem) {
+    for (const key in elem) {
+        elem[key] = '';
+    };
+};
 
 const PI = Math.PI;
+const number = '0123456789';
 const elem = {
     operandA: '',
     operandB: '',
     operator: '',
-};
-const value = {
-    current: 0,
-    memory: 1,
-}
-
-function clearEverything(elem, value) {
-    for (const key in elem) {
-        elem[key] = '';
-    };
-    for (const key in value) {
-        value[key] = 0;
-    };
+    memory: '',
 };
 
-function checkAllClear(elem, value) {
-    return Object.values(elem).every(item => item === '') 
-    && Object.values(value).every(item => item === 0);
+function getId(e) {
+    console.log(e.target.id);
 }
+
+function updateElem(input) {
+    function choose(elem) {
+
+    }
+
+}
+
+function buttonInit() {
+    const idText = [...document.querySelectorAll(".get-id > *")];
+    for (const element of idText) {
+        element.addEventListener("click", (e) => getId(e));
+    }
+}
+
+buttonInit()
